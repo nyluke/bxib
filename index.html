@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bronx is Blooming</title>
+  <meta name="description" content="A Bronx-based nonprofit dedicated to environmental stewardship, community building, and youth leadership development.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green-deep: #1a3a2a;
+      --green-mid: #2d6a4f;
+      --green-bright: #40916c;
+      --green-light: #74c69d;
+      --green-pale: #d8f3dc;
+      --cream: #fefae0;
+      --warm-white: #fdfcf7;
+      --warm-gray: #6b6b5e;
+      --text: #2c2c27;
+      --text-light: #5c5c52;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--warm-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    a { color: var(--green-mid); text-decoration: none; }
+    a:hover { color: var(--green-bright); }
+
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(253, 252, 247, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.25rem;
+      color: var(--green-deep);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--green-bright); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green-mid); }
+    .nav-links a.btn-primary { color: #fff; }
+    .nav-links a.btn-primary:hover { color: #fff; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-primary {
+      background: var(--green-mid);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--green-deep);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(45, 106, 79, 0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--green-mid);
+      border: 2px solid var(--green-mid);
+    }
+    .btn-outline:hover {
+      background: var(--green-mid);
+      color: #fff;
+    }
+    .btn-white {
+      background: #fff;
+      color: var(--green-deep);
+    }
+    .btn-white:hover {
+      background: var(--cream);
+      color: var(--green-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--green-deep);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 160px 0 100px;
+      position: relative;
+      overflow: hidden;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(26, 58, 42, 0.82) 0%, rgba(45, 106, 79, 0.65) 100%);
+    }
+    .hero-content {
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green-light);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--green-light);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 560px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ---- STATS ---- */
+    .stats {
+      padding: 80px 0;
+      background: var(--green-deep);
+      color: #fff;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      color: var(--green-light);
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+
+    /* ---- SECTIONS SHARED ---- */
+    section { padding: 100px 0; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green-bright);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--green-deep);
+      margin-bottom: 20px;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    /* ---- ABOUT ---- */
+    .about { background: var(--warm-white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text .section-desc { margin-bottom: 28px; }
+    .about-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .about-highlights li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+    .about-highlights .icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--green-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+    .about-image {
+      border-radius: 20px;
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 32px;
+      background: linear-gradient(transparent, rgba(26, 58, 42, 0.85));
+      color: #fff;
+    }
+    .about-image-overlay .big-stat {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+    .about-image-overlay p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    /* ---- PROGRAMS ---- */
+    .programs { background: var(--cream); }
+    .programs-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .programs-header .section-desc {
+      margin: 0 auto;
+    }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .program-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .program-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+    .program-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .program-card-body {
+      padding: 32px 28px;
+    }
+    .program-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--green-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    .program-card h3 {
+      font-size: 1.3rem;
+      color: var(--green-deep);
+      margin-bottom: 12px;
+    }
+    .program-card p {
+      font-size: 0.92rem;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    /* ---- PHOTO STRIP ---- */
+    .photo-strip {
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      overflow: hidden;
+    }
+    .photo-strip img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .photo-strip img:hover {
+      transform: scale(1.05);
+    }
+    @media (max-width: 900px) {
+      .photo-strip { grid-template-columns: repeat(2, 1fr); }
+      .photo-strip img { height: 240px; }
+    }
+    @media (max-width: 640px) {
+      .photo-strip { grid-template-columns: 1fr 1fr; }
+      .photo-strip img { height: 180px; }
+    }
+
+    /* ---- TESTIMONIALS ---- */
+    .testimonials { background: var(--warm-white); }
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .testimonials-header .section-desc { margin: 0 auto; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .testimonial-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 32px;
+      border: 1px solid rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-quote {
+      font-size: 2rem;
+      color: var(--green-light);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .testimonial-card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      font-style: italic;
+      flex: 1;
+    }
+    .testimonial-author {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      font-style: normal;
+    }
+
+    /* ---- CTA BANNER ---- */
+    .cta-banner {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .cta-banner h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cta-banner p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ---- NEWSLETTER ---- */
+    .newsletter {
+      padding: 80px 0;
+      background: var(--cream);
+    }
+    .newsletter-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .newsletter h2 {
+      font-size: 1.8rem;
+      color: var(--green-deep);
+      margin-bottom: 12px;
+    }
+    .newsletter p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 28px;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 100px;
+      border: 2px solid rgba(0,0,0,0.08);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-form input:focus {
+      border-color: var(--green-bright);
+    }
+    .newsletter-form button {
+      flex-shrink: 0;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--green-deep);
+      color: rgba(255,255,255,0.7);
+      padding: 60px 0 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo {
+      color: #fff;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .footer-brand .nav-logo span { color: var(--green-light); }
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-col a {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--green-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+    .footer-social {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-social a {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--green-light); }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-image { order: -1; }
+      .programs-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--warm-white);
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      }
+      .hero { padding: 130px 0 72px; min-height: 70vh; }
+      .hero h1 { font-size: 2.2rem; }
+      section { padding: 72px 0; }
+      .stats { padding: 56px 0; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .newsletter-form { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">The Bronx is <span>Blooming</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#volunteer">Get Involved</a></li>
+        <li><a href="https://www.bronxisblooming.org/donate-to-us" class="btn btn-primary">Donate</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1593624259011-7JW9V65ZJHAKK3ZS4KD0/Mullaly+Group+photo.JPG" alt="Bronx is Blooming volunteers in the park" loading="eager">
+    </div>
+    <div class="container hero-content">
+      <div class="hero-tag">Bronx, NY &mdash; Since 2011</div>
+      <h1>Growing greener neighborhoods,<br><em>one park at a time</em></h1>
+      <p>We're a Bronx-based nonprofit dedicated to environmental stewardship, community building, and youth leadership development. We train local youth to lead volunteer initiatives that transform our borough's parks and green spaces.</p>
+      <div class="hero-buttons">
+        <a href="https://www.bronxisblooming.org/upcoming-events" class="btn btn-white">Volunteer With Us</a>
+        <a href="#programs" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.5);">See Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats" id="impact">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-number">480+</div>
+          <div class="stat-label">Youth jobs created<br>since 2011</div>
+        </div>
+        <div>
+          <div class="stat-number">24,000+</div>
+          <div class="stat-label">Community volunteers<br>engaged</div>
+        </div>
+        <div>
+          <div class="stat-number">175,000+</div>
+          <div class="stat-label">Hours of service<br>completed</div>
+        </div>
+        <div>
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Parks &amp; green spaces<br>across the Bronx</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-text">
+        <div class="section-tag">Who We Are</div>
+        <h2 class="section-title">The Bronx has more parkland than any other borough</h2>
+        <p class="section-desc">The Bronx contains 24% parkland&mdash;more than any other borough&mdash;but much of it is located on the periphery, leaving smaller neighborhood parks under-resourced and understaffed. We focus on these local green spaces, making nature accessible to every community.</p>
+        <ul class="about-highlights">
+          <li>
+            <div class="icon">&#127793;</div>
+            <span>A mature tree absorbs 48+ pounds of carbon monoxide per year&mdash;critical in the borough with the state's highest asthma rates</span>
+          </li>
+          <li>
+            <div class="icon">&#127758;</div>
+            <span>Weekend events, school partnerships, and corporate team-building that bring communities together</span>
+          </li>
+          <li>
+            <div class="icon">&#127891;</div>
+            <span>Youth-led programming that develops real leadership skills and creates pathways to green careers</span>
+          </li>
+        </ul>
+        <a href="https://www.bronxisblooming.org/about-us" class="btn btn-outline">Learn More About Us</a>
+      </div>
+      <div class="about-image">
+        <img src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1626122881176-XKXBBR33F4688PLN2CPM/My+fave+student+leadership+photo+-+leading+a+corporate+vol+-+first+page_.jpg" alt="Youth leader guiding corporate volunteers" loading="lazy">
+        <div class="about-image-overlay">
+          <div class="big-stat">24%</div>
+          <p>of the Bronx is parkland &mdash; more than any other borough</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section class="programs" id="programs">
+    <div class="container">
+      <div class="programs-header">
+        <div class="section-tag">What We Do</div>
+        <h2 class="section-title">Our Programs</h2>
+        <p class="section-desc">From community gardening to youth leadership, our programs create lasting change across the Bronx.</p>
+      </div>
+      <div class="programs-grid">
+        <div class="program-card">
+          <img class="program-card-img" src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1593194892862-B0K3Q3KJXD3H9MVO7B9T/Website%2B-%2BCommunity%2Bevents_%2Bstreet%2Btree%2Bstewardship_%2Bboogie%2Bon%2Bthe%2Bboulevard.jpg" alt="Community street tree stewardship event" loading="lazy">
+          <div class="program-card-body">
+            <div class="program-icon">&#127795;</div>
+            <h3>GREEN Initiative</h3>
+            <p>Our signature community program&mdash;Grow, Revitalize, Engage, Educate, Nurture. Volunteers learn to revitalize green spaces while understanding their environmental impact.</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <img class="program-card-img" src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1593019822668-0CEP6XLPSNP0DAWF228Q/Website%2B-%2BPLACE%2BProgram%2Bstaff%2Band%2Bstudents_%2Bmentoring.jpg" alt="PLACE program staff and students mentoring" loading="lazy">
+          <div class="program-card-body">
+            <div class="program-icon">&#127775;</div>
+            <h3>PLACE Youth Program</h3>
+            <p>Since 2013, Bronx youth lead groups of 15&ndash;150 volunteers in environmental service projects, gaining horticultural training and real work experience.</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <img class="program-card-img" src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1592940617587-ST22OMGE99P3OCXNUQ3Z/IMG_8389.jpg" alt="Tree care in the Bronx" loading="lazy">
+          <div class="program-card-body">
+            <div class="program-icon">&#127794;</div>
+            <h3>Tree Giveaways</h3>
+            <p>Free trees for Bronx residents to increase canopy cover, improve air quality, and beautify neighborhoods&mdash;one tree at a time.</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <img class="program-card-img" src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1609874900098-KDKJWB60J39O561PMJZE/Copy+of+Website+Slideshow.png" alt="Community volunteer event" loading="lazy">
+          <div class="program-card-body">
+            <div class="program-icon">&#128101;</div>
+            <h3>Community Events</h3>
+            <p>Regular volunteer days at parks across the Bronx&mdash;from Soundview to Crotona to St. Mary's. Weekday and weekend opportunities for everyone.</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <img class="program-card-img" src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1593017106974-6HPRBEW3U2UYY8OQS9FC/Leah_+Jose+-+Website+Mentor+training+PLACE.JPG" alt="Mentor training session" loading="lazy">
+          <div class="program-card-body">
+            <div class="program-icon">&#127891;</div>
+            <h3>Education &amp; Outreach</h3>
+            <p>School partnerships, guest speakers from environmental organizations, and college tours&mdash;broadening horizons for Bronx youth.</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <img class="program-card-img" src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1593019626402-SPJVMAVWBN5I2XPSE72C/Website+-+Staff+training_+internships+page+.JPG" alt="Staff training and team building" loading="lazy">
+          <div class="program-card-body">
+            <div class="program-icon">&#129309;</div>
+            <h3>Corporate Partnerships</h3>
+            <p>Team-building service days for companies that want to give back. A hands-on way to make a visible impact in the community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Strip -->
+  <div class="photo-strip">
+    <img src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1609876089681-U84PKLODTMHDRB54V5E7/Copy+of+Website+Slideshow-5.png" alt="Bronx is Blooming volunteers working together" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1609875164596-LVZM2YI4EKDNDO9WOGD2/Copy+of+Website+Slideshow-2.png" alt="Park revitalization in the Bronx" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1609877946364-CAIF5JA4BNCOWGX1R91K/Copy+of+Website+Slideshow-7.png" alt="Youth leadership in action" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5e56a355d4d7603b8332a79a/1593017103830-CG3QTYQ0OSPSWCYE5I0B/Place+team+building+bbq+-+website__++%281%29.JPG" alt="PLACE team building barbecue" loading="lazy">
+  </div>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="section-tag">Voices From the Community</div>
+        <h2 class="section-title">Hear from our youth</h2>
+        <p class="section-desc">Our programs create leaders. Here's what participants have to say.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">&ldquo;</div>
+          <p>Even though the job was hard at first, it became so much more important to me when I realized how crucial our work is to the community.</p>
+          <div class="testimonial-author">&mdash; PLACE Program Participant</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">&ldquo;</div>
+          <p>I have proved myself to be a leader and a mentor to many young students. Every day I am committed to the work this organization does.</p>
+          <div class="testimonial-author">&mdash; Returning Third-Year Student</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">&ldquo;</div>
+          <p>He started the program as quiet and unenthusiastic, but came out of his shell during volunteer projects and became one of the most innovative workers in the group.</p>
+          <div class="testimonial-author">&mdash; Program Mentor</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner" id="volunteer">
+    <div class="container">
+      <h2>Ready to help the Bronx bloom?</h2>
+      <p>Whether you want to volunteer, join a program, or support our mission financially, there's a place for you.</p>
+      <div class="cta-buttons">
+        <a href="https://www.bronxisblooming.org/upcoming-events" class="btn btn-white">See Upcoming Events</a>
+        <a href="https://www.bronxisblooming.org/donate-to-us" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.5);">Make a Donation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-inner">
+        <h2>Stay in the loop</h2>
+        <p>Get updates on upcoming events, volunteer opportunities, and stories from the Bronx.</p>
+        <form class="newsletter-form" action="https://www.bronxisblooming.org/signup" method="get">
+          <input type="email" placeholder="Your email address" required aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="nav-logo">The Bronx is <span>Blooming</span></span>
+          <p>A Bronx-based nonprofit dedicated to environmental stewardship, community building, and youth leadership development since 2011.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul>
+            <li><a href="https://www.bronxisblooming.org/about-us">About Us</a></li>
+            <li><a href="https://www.bronxisblooming.org/our-team">Our Team</a></li>
+            <li><a href="https://www.bronxisblooming.org/our-board">Our Board</a></li>
+            <li><a href="https://www.bronxisblooming.org/careers">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="https://www.bronxisblooming.org/community-programming">Community</a></li>
+            <li><a href="https://www.bronxisblooming.org/youth-programming">Youth</a></li>
+            <li><a href="https://www.bronxisblooming.org/tree-giveaways">Tree Giveaways</a></li>
+            <li><a href="https://www.bronxisblooming.org/upcoming-events">Events</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:info@bronxisblooming.org">Email Us</a></li>
+            <li><a href="https://www.instagram.com/bronxisblooming/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.bronxisblooming.org/press">Press</a></li>
+            <li><a href="https://www.bronxisblooming.org/donate-to-us">Donate</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 The Bronx is Blooming. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/bronxisblooming/" target="_blank" rel="noopener">Instagram</a>
+          <a href="mailto:info@bronxisblooming.org">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Animate stats on scroll
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const observerOptions = { threshold: 0.5 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    statNumbers.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
